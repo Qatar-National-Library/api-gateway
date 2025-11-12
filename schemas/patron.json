@@ -1,0 +1,160 @@
+{
+    "fields":[
+        {
+            "name": "id",
+            "validators": "isNumber",
+            "jsonReadBack": "data['id']"            
+        },
+        {
+            "name": "accountExpirationDate",
+            "validators": "isDate",
+            "jsonReadBack": "data['expirationDate']"            
+        },
+        {
+            "name": "firstName",
+            "validators": "isFilled,lenRange|2|20",
+            "jsonReadBack": "data['names'][0].split(',')[1]"
+        },
+        {
+            "name": "lastName",
+            "validators": "isFilled,lenRange|3|20",
+            "jsonReadBack": "data['names'][0].split(',')[0]"
+        },
+        {
+            "name": "email",
+            "validators": "isFilled,lenRange|3|50",
+            "jsonReadBack": "data['emails'][0]"
+        },
+        {
+            "name": "dateOfBirth",
+            "validators": "isFilled,lenRange|10|10,isDate,isDateBetweenRelative|-100 years|+0 years",
+            "jsonReadBack": "data['birthDate']"
+        },
+        {
+            "name": "password",
+            "validators": "isFilled,lenRange|8|12,contains|number,contains|alphabet",
+            "jsonReadBack": "''"
+        },
+        {
+            "name": "nationality",
+            "validators": "",
+            "jsonReadBack": "''"
+        },
+        {
+            "name": "requestSource",
+            "validators": "",
+            "jsonReadBack": "''"
+        },
+        {
+            "name": "telephone",
+            "validators": "canBeEmpty,isNumber,lenRange|8|15",
+            "jsonReadBack": "data['phones'][0]['number']"
+        },
+        {
+            "name": "userType",
+            "validators": "isFilled",
+            "jsonReadBack": "data['patronCodes'['pcode1']"
+        },
+        {
+            "name": "address",
+            "validators": "canBeEmpty,lenRange|0|100",
+            "jsonReadBack": "data['addresses'][0]['lines'][0]"
+        },
+        {
+            "name": "professionField",
+            "validators": "isFilled",
+            "jsonReadBack": "data['patronCodes'['pcode3']"
+        },
+        {
+            "name": "patronType",
+            "validators": "isFilled,isNumeric",
+            "jsonReadBack": "data['patronType']"
+        },
+        {
+            "name": "qid",
+            "validators": "isFilled,lenRange|11|13,isNumeric",
+            "jsonReadBack": "data['uniqueIds'][0]"
+        },
+        {
+            "name": "qidExpiry",
+            "validators": "isFilled,lenRange|10|10,isDate",
+            "jsonReadBack": "data['expirationDate']"
+        },
+        {
+            "name": "barcode",
+            "validators": "isFilled",
+            "jsonReadBack": "data['barcodes'][0]"
+        },        
+        {
+            "name": "genderNationality",
+            "validators": "",
+            "jsonReadBack": "data['fixedFields']['45']['value']"
+        },
+        {
+            "name": "preferredLanguage",
+            "validators": "",
+            "jsonReadBack": "data['fixedFields']['263']['value']"
+        },
+        {
+            "name": "noticePreference",
+            "validators": "",
+            "jsonReadBack": "data['fixedFields']['268']['value']"
+        },
+		{
+			"name": "blockCode",
+			"validators": "",
+			"jsonReadBack": "data['fixedFields']['56']['value']"
+		}
+    ],
+    "queries": [
+        {
+            "name": "findByID",
+            "type": "GET",
+            "urlSuffix": "patrons/%id%?fields=emails,addresses,names,birthDate,phones,patronCodes,patronType,uniqueIds,barcodes,expirationDate,deleted,varFields,fixedFields",
+            "template": "",
+            "successCode": 200
+        },
+        {
+            "name": "findByEmail",
+            "type": "POST",
+            "urlSuffix": "patrons/query?offset=0&limit=10",
+            "template": "{ \"target\": { \"record\": {\"type\": \"patron\"},\"field\": {\"tag\": \"z\"}},\"expr\": {\"op\": \"equals\",\"operands\": [\"%email%\"]}}",
+            "successCode": 200
+        },        
+        {
+            "name": "findByBarcode",
+            "type": "POST",
+            "urlSuffix": "patrons/query?offset=0&limit=10",
+            "template": "{ 'target': { 'record': {'type': 'patron'},'field': {'tag': 'b'}},'expr': {'op': 'equals','operands': ['%barcode%']}}",
+            "successCode": 200
+        },
+        {
+            "name": "findByTelephone",
+            "type": "POST",
+            "urlSuffix": "patrons/query?offset=0&limit=10",
+            "template": "{ 'target': { 'record': {'type': 'patron'},'field': {'tag': 't'}},'expr': {'op': 'equals','operands': ['%telephone%']}}",
+            "successCode": 200
+        },
+        {
+            "name": "findByMobile",
+            "type": "POST",
+            "urlSuffix": "patrons/query?offset=0&limit=10",
+            "template": "{ 'target': { 'record': {'type': 'patron'},'field': {'tag': 'o'}},'expr': {'op': 'equals','operands': ['%telephone%']}}",
+            "successCode": 200
+        },
+        {
+            "name": "findByName",
+            "type": "POST",
+            "urlSuffix": "patrons/query?offset=0&limit=10",
+            "template": "{ 'target': { 'record': {'type': 'patron'},'field': {'tag': 'n'}},'expr': {'op': 'has','operands': ['%firstName%']}}",
+            "successCode": 200
+        },
+        {
+            "name": "findByQID",
+            "type": "POST",
+            "urlSuffix": "patrons/query?offset=0&limit=10",
+            "template": "{ 'target': { 'record': {'type': 'patron'},'field': {'tag': 'u'}},'expr': {'op': 'equals','operands': ['%qid%']}}",
+            "successCode": 200
+        }
+    ]
+}

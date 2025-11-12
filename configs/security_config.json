@@ -1,0 +1,14 @@
+{
+    "configs": [
+        {          
+            "api_key": "headerKey",
+            "client_name":"c1",
+            "allowed_paths":["/sierra/patron/get","/sierra/patron/find","/sierra/token"]        
+        },
+        {             
+            "api_key": "myKey",
+            "client_name":"c2",
+            "allowed_paths":["/sierra/patron/find","/sierra/token"]        
+        }
+    ]
+}
