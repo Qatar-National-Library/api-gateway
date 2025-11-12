@@ -1,7 +1,5 @@
 pydantic
 pandas
-json
 requests
 typing
-glob
 fastapi
