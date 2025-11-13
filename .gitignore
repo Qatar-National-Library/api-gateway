@@ -1,1 +1,7 @@
 __pycache__/
+debug.log
+log.log
+.vscode
+tests.xlsx
+updated_requests.xlsx
+*_old.*
