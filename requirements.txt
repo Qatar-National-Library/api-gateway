@@ -5,3 +5,4 @@ typing
 fastapi
 logging
 urllib3
+uvicorn
