@@ -52,7 +52,7 @@ async def doWork(request: Request, call_next):
         else:            
             hf.log("DEBUG",f"PATH ERROR | {request.method} | {client_name} / {api_key} | {request.url.path} | {request.body}")        
             raise HTTPException(status_code=403, detail="Access Denied")    
-        response = await call_next(request)
+        #response = await call_next(request)
     except HTTPException as e:
         # return 200 when force200onException is set, otherwise use original status
         if force200onException:
