@@ -6,3 +6,4 @@ fastapi
 logging
 urllib3
 uvicorn
+python-dotenv
