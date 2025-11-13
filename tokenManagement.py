@@ -16,7 +16,7 @@ class Token:
     
     def renewToken(self):        
         if(self.token_death < datetime.now()):
-            self.hf.print("New Token...")        
+            
             url = "{}/token".format(self.token_baseURL) #"https://library.qnl.qa:443/iii/sierra-api/v6/token"
             userpass = "{}:{}".format(self.token_user,self.token_password) #g5orCpSXbHJT9srOUEfcWOQdzJba:2S3fkjsdfD!"
         
@@ -31,8 +31,9 @@ class Token:
             self.token=data["access_token"]
             self.token_death=datetime.now() + timedelta(seconds=data["expires_in"])
             self.token_type=data["token_type"]
+            self.hf.log("DEBUG", f"NEW TOKEN | {self.token} | {self.token_death}")
         else:
-            self.hf.print("Token Exists and is valid...")        
+            self.hf.log("DEBUG", f"TOKEN | {self.token} | {self.token_death}") 
 
     def getSecureHeader(self):
         self.renewToken()
